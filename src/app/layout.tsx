@@ -1,6 +1,9 @@
+import "../styles/globals.css";
 import type { Metadata } from "next";
 import { Anonymous_Pro, Noto_Sans } from "next/font/google";
-import "../styles/globals.css";
+import { TanstackQueryProvider } from "@/components/tanstack-query-provider";
+import { SessionProvider } from "@/auth/provider";
+import { Toaster } from "sonner";
 
 const anonymousPro = Anonymous_Pro({
   subsets: ["latin"],
@@ -29,9 +32,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${anonymousPro.variable} ${notoSans.variable} antialiased`}
+        className={`${anonymousPro.variable} ${notoSans.variable} antialiased bg-dark`}
       >
-        {children}
+        <TanstackQueryProvider>
+          <SessionProvider>{children}</SessionProvider>
+        </TanstackQueryProvider>
+        <Toaster />
       </body>
     </html>
   );

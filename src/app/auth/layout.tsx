@@ -3,5 +3,7 @@ export default function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div>{children}</div>;
+  return (
+    <div className="bg-linear-to-b from-blue-dark to-dark">{children}</div>
+  );
 }
