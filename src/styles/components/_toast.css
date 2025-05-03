@@ -1,0 +1,11 @@
+.toaster {
+  @apply flex flex-start gap-[10px] p-[10px] rounded-[8px] text-shark-950 bg-white;
+}
+
+.toaster-success {
+  @apply border border-[#09DE79] text-[#0A7142];
+}
+
+.toaster-error {
+  @apply border border-[#F8A9A9] text-[#D32F2F];
+}

@@ -6,4 +6,14 @@ export enum ErrorCodes {
     USER_NOT_FOUND_ERROR = 'USER_NOT_FOUND_ERROR',
     INVALID_CREDENTIALS = 'INVALID_CREDENTIALS',
     UNKNOWN_ERROR = 'UNKNOWN_ERROR',
-  }
+}
+
+export enum SonnerType {
+    ERROR = 'error',
+    SUCCESS = 'success'
+}
+
+export enum ErrorCodesNames {
+    USER_NOT_FOUND = 'User not found',
+    UNKNOWN_ERROR = 'UNKNOWN_ERROR',
+}

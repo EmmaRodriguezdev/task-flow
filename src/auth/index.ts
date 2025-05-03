@@ -6,9 +6,7 @@ import { ErrorCodes } from '../core/types/enums';
 
 interface LoginData {
   user: IUser;
-  token: string;
-  createdAt: string;
-  updatedAt: string;
+  access_token: string;
 }
 
 class CustomSignInError extends Error {
@@ -52,7 +50,7 @@ export const authOptions: NextAuthOptions = {
           throw new CustomSignInError(ErrorCodes.UNKNOWN_ERROR);
         }
         const data = (await res.json()) as LoginData;
-        return { ...data.user, token: data.token };
+        return { ...data.user, token: data.access_token };
       },
     }),
   ],
@@ -74,12 +72,13 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (session.user && token) {
-        session.token = token.token as string;
+        session.access_token = token.access_token as string;
         session.user.id = token.id;
         session.user.email = token.email;
         session.user.name = token.name;
-        session.user.odooPartnerId = token.odooPartnerId;
-        session.user.roles = token.roles;
+        session.user.lastName = token.lastName;
+        session.user.phone = token.phone;
+        session.user.profile = token.profile;
       }
       return session;
     },
