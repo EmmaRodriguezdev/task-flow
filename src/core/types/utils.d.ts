@@ -7,3 +7,9 @@ export interface Error<T = undefined> {
   timestamp: Date;
   stack: string;
 }
+
+export interface IBasicData {
+  id: number;
+  createdAt: string;
+  updatedAt: string | null;
+}

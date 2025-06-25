@@ -22,7 +22,7 @@ import axios, {
       try {
         const session = await getSessionSafe();
         if (session) {
-          const token = session.token;
+          const token = session.access_token;
           config.headers.Authorization = `Bearer ${token}`;
         }
       } catch (error) {
