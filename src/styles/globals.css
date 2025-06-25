@@ -1,15 +1,22 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "./components/_layout.css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant light (&:is(.light *));
 
 @theme {
-  --color-dark: #000814;
+  --color-light: #fff;
   --color-blue-dark: #001d3d;
   --color-blue-medium: #003566;
+  --color-blue-light: #d0f6ff;
   --color-yellow: #ffc300;
   --color-yellow-light: #ffd60a;
   --color-white-blue: #d2d5d6;
+  --color-red-intense: #ea3c04;
+  --color-red-light: #ffd0d0;
+  --color-green-intense: #20de60;
+  --color-green-light: #d0ffe0;
+  --color-gray-light: #d2d5d6;
 }
 
 @theme inline {
@@ -125,7 +132,16 @@
   * {
     @apply border-border outline-ring/50;
   }
+
+  html {
+    overflow-x: hidden;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    font-family: var(--font-rubik);
+    box-sizing: border-box;
+    @apply bg-background text-black;
+    overflow-x: hidden;
+    width: 100%;
   }
 }

@@ -1,22 +1,15 @@
 import "../styles/globals.css";
 import type { Metadata } from "next";
-import { Anonymous_Pro, Noto_Sans } from "next/font/google";
+import { Rubik } from "next/font/google";
 import { TanstackQueryProvider } from "@/components/tanstack-query-provider";
 import { SessionProvider } from "@/auth/provider";
 import { Toaster } from "sonner";
 
-const anonymousPro = Anonymous_Pro({
+const Rubyk = Rubik({
   subsets: ["latin"],
-  variable: "--font-anonymous-pro",
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
-});
-
-const notoSans = Noto_Sans({
-  subsets: ["latin"],
-  variable: "--font-noto-sans",
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
+  variable: "--font-rubik",
+  weight: ["400"],
+  style: ["normal"],
 });
 
 export const metadata: Metadata = {
@@ -31,9 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${anonymousPro.variable} ${notoSans.variable} antialiased bg-dark`}
-      >
+      <body className={`${Rubyk.variable} antialiased bg-dark relative`}>
         <TanstackQueryProvider>
           <SessionProvider>{children}</SessionProvider>
         </TanstackQueryProvider>
