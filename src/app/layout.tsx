@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${Rubyk.variable} antialiased bg-dark relative`}>
+      <body className={`${Rubyk.variable} antialiased bg-dark`}>
         <TanstackQueryProvider>
           <SessionProvider>{children}</SessionProvider>
         </TanstackQueryProvider>

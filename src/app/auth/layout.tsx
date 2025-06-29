@@ -4,6 +4,6 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-linear-to-b from-blue-dark to-dark">{children}</div>
+    <div className="bg-gradient-to-l from-blue-dark to-black">{children}</div>
   );
 }
