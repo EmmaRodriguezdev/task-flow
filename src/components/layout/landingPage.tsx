@@ -3,8 +3,8 @@ import { Button } from "../ui/button";
 
 export default function LandingPage() {
   return (
-    <div className="px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 py-16 h-[100%] max-w-full overflow-x-hidden">
-      <section className="w-full flex flex-col lg:flex-row gap-[20px] justify-center items-center">
+    <div className="px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 py-16 h-[100%] max-w-full">
+      <section className="w-full flex flex-col lg:flex-row gap-[20px] justify-center items-center h-[calc(100dvh-10dvh)]">
         <article className="flex flex-col gap-[40px] w-full">
           <h1 className="text-4xl sm:text-5xl lg:text-[5rem] leading-tight lg:leading-[6rem] font-extrabold text-wrap">
             Gestioná tus tareas con{" "}
@@ -35,7 +35,7 @@ export default function LandingPage() {
           />
         </div>
       </section>
-      <section className="h-[100dvh] flex flex-col gap-[20px] justify-center items-center">
+      <section className="h-[100dvh] flex flex-col gap-[20px] justify-center items-center bg-black">
         <h1>This is other section</h1>
       </section>
     </div>

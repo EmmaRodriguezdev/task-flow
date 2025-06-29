@@ -20,11 +20,17 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { ChevronDown } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronUp,
+  LogOut,
+  SignalHigh,
+  User2,
+} from "lucide-react";
 import useWorkspaceHook from "@/modules/workspace/presentation/hooks/workspace.hook";
 import { WorkspaceDataSource } from "@/modules/workspace/infrastructure/datasources/workspace.data-source";
 import { signOut } from "next-auth/react";
-import { Button } from "@/components/ui/button";
+import { useSession } from "next-auth/react";
 
 type SidebarItem = {
   title: string;
@@ -33,6 +39,7 @@ type SidebarItem = {
 };
 
 export function AppSidebar() {
+  const { data: session } = useSession();
   const workspaceDataSource = new WorkspaceDataSource();
   const { getWorkspaces } = useWorkspaceHook(workspaceDataSource);
   const items: SidebarItem[] = [
@@ -81,10 +88,13 @@ export function AppSidebar() {
             TASKFLOW
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu className="space-y-[10px]">
+            <SidebarMenu className="space-y-[10px] p-[20px_10px]">
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton
+                    asChild
+                    className="hover:bg-blue-medium hover:text-white"
+                  >
                     <a href={item.url}>
                       {item.icon && <item.icon />}
                       <span>{item.title}</span>
@@ -96,14 +106,39 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="m-4">
-        <Button
-          variant="ghost"
-          className="w-full justify-start text-base text-sidebar-foreground"
-          onClick={() => signOut({ callbackUrl: "/auth/login" })}
-        >
-          Logout
-        </Button>
+      <SidebarFooter className="bg-blue-dark ">
+        <SidebarMenu className="bg-blue-dark text-white">
+          <SidebarMenuItem>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <SidebarMenuButton>
+                  <User2 />{" "}
+                  {session?.user?.name + " " + session?.user?.lastName ||
+                    "User"}
+                  <ChevronUp className="ml-auto" />
+                </SidebarMenuButton>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                side="top"
+                className="w-[--radix-popper-anchor-width]"
+              >
+                <DropdownMenuItem>
+                  <span>Account</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <span>Billing</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => signOut({ callbackUrl: "/auth/login" })}
+                >
+                  <span className="flex items-center">
+                    Sign out <LogOut className="ml-2" />{" "}
+                  </span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
   );
