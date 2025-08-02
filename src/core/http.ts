@@ -12,7 +12,7 @@ import axios, {
   
   const axiosInstance: AxiosInstance = axios.create({
     baseURL: Constants.API_URL,
-    timeout: 15000,
+    timeout: 50000,
     headers: { 'Content-Type': 'application/json' },
   });
   

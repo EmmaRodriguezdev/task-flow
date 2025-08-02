@@ -4,6 +4,7 @@ import { Rubik } from "next/font/google";
 import { TanstackQueryProvider } from "@/components/tanstack-query-provider";
 import { SessionProvider } from "@/auth/provider";
 import { Toaster } from "sonner";
+import { ReduxProvider } from "@/components/redux-provider";
 
 const Rubyk = Rubik({
   subsets: ["latin"],
@@ -26,7 +27,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${Rubyk.variable} antialiased bg-dark`}>
         <TanstackQueryProvider>
-          <SessionProvider>{children}</SessionProvider>
+          <SessionProvider>
+            <ReduxProvider>{children}</ReduxProvider>
+          </SessionProvider>
         </TanstackQueryProvider>
         <Toaster />
       </body>

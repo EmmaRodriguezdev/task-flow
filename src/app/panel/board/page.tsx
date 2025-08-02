@@ -1,5 +1,5 @@
 "use client";
-import { ContentBoard } from "./components";
+import { ContentBoard, Filters } from "./components";
 import useBoardHook from "@/modules/board/presentation/hooks/board.hook";
 import { BoardDataSource } from "@/modules/board/infrastructure/datasources/board.data-source";
 import { TaskStatus } from "@/modules/task/infrastructure/interfaces/task.interface";
@@ -7,14 +7,10 @@ import { TaskStatus } from "@/modules/task/infrastructure/interfaces/task.interf
 export default function Board() {
   const boardDataSource = new BoardDataSource();
   const {
-    getBoard: { data: board, isLoading: isLoadingBoard },
-    setList,
-    list,
-    updateStatusTask: {
-      mutateAsync: updateStatusTask,
-      isPending: isUpdatingStatusTask,
-    },
+    getBoard,
+    updateStatusTask: { mutateAsync: updateStatusTask },
   } = useBoardHook(boardDataSource);
+  const board = getBoard.data;
 
   const handleUpdateStatusTask = async (
     taskId: number,
@@ -25,17 +21,20 @@ export default function Board() {
 
   return (
     <div className="flex flex-col gap-[20px]">
-      <div className="border border-gray-200 rounded-[8px] w-full h-14">
-        FILTROS
+      <div className="rounded-[8px] w-full h-14 flex flex-wrap items-center">
+        <Filters />
       </div>
       <section>
         <ContentBoard
-          backlog={board?.backlog || []}
-          todo={board?.todo || []}
-          inProgress={board?.inProgress || []}
-          inReview={board?.inReview || []}
-          done={board?.done || []}
+          backlog={board?.BACKLOG || []}
+          todo={board?.TODO || []}
+          inProgress={board?.IN_PROGRESS || []}
+          inReview={board?.IN_REVIEW || []}
+          done={board?.DONE || []}
           handleUpdateStatusTask={handleUpdateStatusTask}
+          onTaskCreated={() => {
+            getBoard.refetch();
+          }}
         />
       </section>
     </div>

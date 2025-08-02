@@ -31,7 +31,7 @@ export const authOptions: NextAuthOptions = {
         if (!credentials?.email || !credentials?.password) {
           throw new CustomSignInError(ErrorCodes.INVALID_CREDENTIALS);
         }
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/signin`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

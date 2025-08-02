@@ -1,9 +1,18 @@
 import Image from "next/image";
 import { MdMenu } from "react-icons/md";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { SidebarMenuButton } from "../ui/sidebar";
 
 export default function Header() {
   const router = useRouter();
+  const { status: statusSession } = useSession();
   const nav = [
     {
       name: "Home",
@@ -32,6 +41,8 @@ export default function Header() {
           height={100}
           className="h-auto w-60 cursor-pointer"
           onClick={() => router.push("/")}
+          quality={100}
+          loading="lazy"
         />
         <div className="flex items-center gap-[100px] justify-between">
           <nav>
@@ -48,9 +59,25 @@ export default function Header() {
               ))}
             </ul>
           </nav>
-          <button className="text-white">
-            <MdMenu size={24} />
-          </button>
+          {statusSession === "authenticated" && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild className="">
+                <MdMenu
+                  size={26}
+                  className="ml-auto cursor-pointer"
+                  color="white"
+                />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem onClick={() => router.push("/panel")}>
+                  <span>Panel</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <span>Cerrar sesión</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </div>
       </div>
     </header>

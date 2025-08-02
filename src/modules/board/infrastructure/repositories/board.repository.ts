@@ -7,7 +7,7 @@ export class BoardRepository {
     constructor(boardDataSource: BoardDataSource) {
         this.boardDataSource = boardDataSource
     }
-    async getBoardByWorkspaceId(workspaceId: number): Promise<BoardEntity> {
+    async getBoardByWorkspaceId(workspaceId: number | null): Promise<BoardEntity> {
         return this.boardDataSource.getBoardByWorkspaceId(workspaceId)
     }
 
