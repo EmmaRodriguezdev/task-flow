@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 export default function LandingPage() {
   return (
     <div className="px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 py-16 h-[100%] max-w-full">
-      <section className="w-full flex flex-col lg:flex-row gap-[20px] justify-center items-center h-[calc(100dvh-10dvh)]">
+      <section className="w-full flex flex-col 2xl:flex-row gap-[20px] justify-center items-center h-[calc(100dvh-10dvh)] lg:flex-col">
         <article className="flex flex-col gap-[40px] w-full">
           <h1 className="text-4xl sm:text-5xl lg:text-[5rem] leading-tight lg:leading-[6rem] font-extrabold text-wrap">
             Gestioná tus tareas con{" "}
@@ -25,13 +25,15 @@ export default function LandingPage() {
             Probar gratis
           </Button>
         </article>
-        <div className="w-full">
+        <div className="w-full inline-flex justify-center items-center">
           <Image
             src="/images/management.webp"
             alt="presentacion"
             width={100}
             height={100}
-            className="h-auto w-full"
+            className="h-auto 2xl:w-full w-[60vw]"
+            quality={100}
+            loading="lazy"
           />
         </div>
       </section>

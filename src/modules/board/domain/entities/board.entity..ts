@@ -1,23 +1,23 @@
 import { ITask } from "@/modules/task/infrastructure/interfaces/task.interface";
 
 export class BoardEntity {
-  backlog: ITask[];
-  todo: ITask[];
-  inProgress: ITask[];
-  inReview: ITask[];
-  done: ITask[];
+  BACKLOG: ITask[];
+  TODO: ITask[];
+  IN_PROGRESS: ITask[];
+  IN_REVIEW: ITask[];
+  DONE: ITask[];
 
   constructor(
-    backlog: ITask[],
-    todo: ITask[],
-    inProgress: ITask[],
-    inReview: ITask[],
-    done: ITask[]
+    BACKLOG: ITask[],
+    TODO: ITask[],
+    IN_PROGRESS: ITask[],
+    IN_REVIEW: ITask[],
+    DONE: ITask[]
   ) {
-    this.backlog = backlog;
-    this.todo = todo;
-    this.inProgress = inProgress;
-    this.inReview = inReview;
-    this.done = done;
+    this.BACKLOG = BACKLOG;
+    this.TODO = TODO;
+    this.IN_PROGRESS = IN_PROGRESS;
+    this.IN_REVIEW = IN_REVIEW;
+    this.DONE = DONE;
   }
 }

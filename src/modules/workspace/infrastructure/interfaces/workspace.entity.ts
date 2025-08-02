@@ -1,7 +1,7 @@
 export interface IWorkspaceResponse {
     id: number;
-    ownerId: number;
+    ownerId?: number;
     name: string;
-    createdAt: string;
-    updatedAt: string;
+    createdAt?: string;
+    updatedAt?: string;
 }

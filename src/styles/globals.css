@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "./components/_layout.css";
+@import "./components/_components.css";
 
 @custom-variant light (&:is(.light *));
 
@@ -17,6 +18,7 @@
   --color-green-intense: #20de60;
   --color-green-light: #d0ffe0;
   --color-gray-light: #d2d5d6;
+  --color-blue-outline: #62b6cb;
 }
 
 @theme inline {
@@ -144,4 +146,12 @@
     overflow-x: hidden;
     width: 100%;
   }
+}
+
+.ql-container {
+  border: none !important;
+}
+
+.ql-toolbar {
+  border: none !important;
 }

@@ -1,4 +1,3 @@
-import CardTask from "./card";
 import {
   ITask,
   TaskStatus,
@@ -6,6 +5,10 @@ import {
 } from "@/modules/task/infrastructure/interfaces/task.interface";
 import { useEffect, useRef } from "react";
 import Sortable from "sortablejs";
+import CreateTask from "./create-task";
+import CreatetaskSection from "./create-task-section";
+import useTaskForms from "@/modules/task/presentation/components/task-form.hook";
+import CardTask from "./card";
 
 export default function ContentBoard({
   backlog,
@@ -14,6 +17,7 @@ export default function ContentBoard({
   inReview,
   done,
   handleUpdateStatusTask,
+  onTaskCreated,
 }: {
   backlog: ITask[];
   todo: ITask[];
@@ -21,14 +25,33 @@ export default function ContentBoard({
   inReview: ITask[];
   done: ITask[];
   handleUpdateStatusTask: (taskId: number, toStatus: TaskStatus) => void;
+  onTaskCreated: () => void;
 }) {
   const backlogRef = useRef<HTMLDivElement>(null);
   const todoRef = useRef<HTMLDivElement>(null);
   const inProgressRef = useRef<HTMLDivElement>(null);
   const inReviewRef = useRef<HTMLDivElement>(null);
   const doneRef = useRef<HTMLDivElement>(null);
+  const {
+    generateTaskForm,
+    showCreateTaskDialog,
+    setShowCreateTaskDialog,
+    setFullText,
+    setTypedText,
+    typedText,
+    finishTyping,
+    fullText,
+  } = useTaskForms.useGenerateTaskForm();
+  const { createTaskForm, setDefaultTaskStatus, defaultTaskStatus } =
+    useTaskForms.useCreateTaskForm();
+
+  const handleShowCreateDialog = (status: TaskStatus) => {
+    setDefaultTaskStatus(status);
+    setShowCreateTaskDialog(true);
+  };
 
   useEffect(() => {
+    const sortables: Sortable[] = [];
     const containers = [
       backlogRef,
       todoRef,
@@ -39,7 +62,7 @@ export default function ContentBoard({
 
     containers.forEach((ref) => {
       if (ref.current) {
-        Sortable.create(ref.current, {
+        const sortable = Sortable.create(ref.current, {
           group: "tasks",
           animation: 150,
           ghostClass: "sortable-ghost",
@@ -53,9 +76,14 @@ export default function ContentBoard({
             );
           },
         });
+        sortables.push(sortable);
       }
     });
-  }, [backlog, todo, inProgress, inReview, done]);
+
+    return () => {
+      sortables.forEach((sortable) => sortable.destroy());
+    };
+  }, []);
 
   return (
     <div className="w-full h-fit border border-gray-200 rounded-[8px]">
@@ -71,6 +99,9 @@ export default function ContentBoard({
             data-column={TaskStatus.BACKLOG.toUpperCase()}
             className="flex flex-col gap-[10px] min-h-screen p-2 border-2 border-dashed border-gray-300 rounded-lg"
           >
+            <CreatetaskSection
+              onClick={() => handleShowCreateDialog(TaskStatus.BACKLOG)}
+            />
             {backlog?.map((task) => (
               <CardTask key={task.id} task={task} id={task.id} />
             ))}
@@ -88,6 +119,9 @@ export default function ContentBoard({
             data-column={TaskStatus.TODO.toUpperCase()}
             className="flex flex-col gap-[10px] min-h-screen p-2 border-2 border-dashed border-gray-300 rounded-lg"
           >
+            <CreatetaskSection
+              onClick={() => handleShowCreateDialog(TaskStatus.TODO)}
+            />
             {todo?.map((task) => (
               <CardTask key={task.id} task={task} id={task.id} />
             ))}
@@ -105,6 +139,9 @@ export default function ContentBoard({
             data-column={TaskStatus.IN_PROGRESS.toUpperCase()}
             className="flex flex-col gap-[10px] min-h-screen p-2 border-2 border-dashed border-gray-300 rounded-lg"
           >
+            <CreatetaskSection
+              onClick={() => handleShowCreateDialog(TaskStatus.IN_PROGRESS)}
+            />
             {inProgress?.map((task) => (
               <CardTask key={task.id} task={task} id={task.id} />
             ))}
@@ -122,6 +159,9 @@ export default function ContentBoard({
             data-column={TaskStatus.IN_REVIEW.toUpperCase()}
             className="flex flex-col gap-[10px] min-h-screen p-2 border-2 border-dashed border-gray-300 rounded-lg"
           >
+            <CreatetaskSection
+              onClick={() => handleShowCreateDialog(TaskStatus.IN_REVIEW)}
+            />
             {inReview?.map((task) => (
               <CardTask key={task.id} task={task} id={task.id} />
             ))}
@@ -139,12 +179,27 @@ export default function ContentBoard({
             data-column={TaskStatus.DONE.toUpperCase()}
             className="flex flex-col gap-[10px] min-h-screen p-2 border-2 border-dashed border-gray-300 rounded-lg"
           >
+            <CreatetaskSection
+              onClick={() => handleShowCreateDialog(TaskStatus.DONE)}
+            />
             {done?.map((task) => (
               <CardTask key={task.id} task={task} id={task.id} />
             ))}
           </div>
         </div>
       </div>
+      <CreateTask
+        open={showCreateTaskDialog}
+        onOpenChange={setShowCreateTaskDialog}
+        generateTaskForm={generateTaskForm}
+        createTaskForm={createTaskForm}
+        setFullText={setFullText}
+        setTypedText={setTypedText}
+        typedText={typedText}
+        finishTyping={finishTyping}
+        fullText={fullText}
+        onTaskCreated={onTaskCreated}
+      />
     </div>
   );
 }
