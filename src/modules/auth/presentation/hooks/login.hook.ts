@@ -3,7 +3,7 @@ import { signIn } from "next-auth/react";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import sonner from "@/lib/sonner";
-import { ErrorCodesNames, SonnerType } from "@/core/types/enums";
+import { SonnerType } from "@/core/types/enums";
 
 type UserCredentials = {
   email: string;

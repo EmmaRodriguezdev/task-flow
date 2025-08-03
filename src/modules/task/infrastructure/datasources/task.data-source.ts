@@ -26,6 +26,7 @@ export class TaskDataSource {
     try {
       return await http.post("tasks/create", data);
     } catch (error) {
+      console.log(error)
       sonner("Error al crear tarea", SonnerType.ERROR);
     }
   }
