@@ -8,7 +8,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { SidebarMenuButton } from "../ui/sidebar";
 
 export default function Header() {
   const router = useRouter();

@@ -2,10 +2,10 @@ import { IWorkspaceResponse } from "../../infrastructure/interfaces/workspace.en
 
 export class WorkspaceEntity {
     id: number;
-    ownerId: number;
+    ownerId?: number;
     name: string;
-    createdAt: string;
-    updatedAt: string;
+    createdAt?: string;
+    updatedAt?: string;
 
     constructor({
         id,

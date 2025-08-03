@@ -1,7 +1,7 @@
 export class UserEntity {
     id: number;
     name: string;
-    lastNamee: string;
+    lastName: string;
     email: string;
     createdAt: string;
     updatedAt: string;
@@ -13,11 +13,11 @@ export class UserEntity {
         email,
         createdAt,
         updatedAt
-    }: any) {
+    }: UserEntity) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.lastNamee = lastName;
+        this.lastName = lastName;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt
     }
