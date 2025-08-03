@@ -3,9 +3,7 @@ import { WorkspaceEntity } from "./workspace.entitty";
 
 export class UserWorkspacesEntity extends UserEntity {
     workspaces: WorkspaceEntity[];
-    constructor({
-        workspace,
-    }: any) {
+    constructor(workspace: WorkspaceEntity[]) {
         super(workspace)
         this.workspaces = workspace;
     }

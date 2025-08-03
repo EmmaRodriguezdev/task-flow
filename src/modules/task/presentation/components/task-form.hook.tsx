@@ -11,7 +11,7 @@ import {
 export type FormGenerateTaskType = z.infer<typeof generateTaskSchema>;
 export type FormCreateTaskType = z.infer<typeof createTaskSchema>;
 
-export function useGenerateTaskForm(defaultData?: FormGenerateTaskType) {
+export function useGenerateTaskForm() {
   const [showCreateTaskDialog, setShowCreateTaskDialog] = useState(false);
   const [typedText, setTypedText] = useState("");
   const typingIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -68,7 +68,7 @@ export function useGenerateTaskForm(defaultData?: FormGenerateTaskType) {
   };
 }
 
-export function useCreateTaskForm(defaultData?: FormCreateTaskType) {
+export function useCreateTaskForm() {
   const [defaultTaskStatus, setDefaultTaskStatus] = useState<TaskStatus>();
   const createTaskForm = useForm<z.infer<typeof createTaskSchema>>({
     resolver: zodResolver(createTaskSchema),

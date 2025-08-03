@@ -13,7 +13,7 @@ export class BoardDataSource {
             }
             return await http.get(`tasks/workspace/${workspaceId}`) as BoardEntity
         } catch (error) {
-            //console.log(error)
+            console.log(error)
             throw new Error("Error fetching board by workspace")
         }
     }
@@ -22,7 +22,7 @@ export class BoardDataSource {
         try {
             return await http.put(`tasks/update-status/${taskId}`, { toStatus: toStatus })
         } catch (error) {
-            //console.log(error)
+            console.log(error)
             throw new Error("Error updating status task")
         }
     }
