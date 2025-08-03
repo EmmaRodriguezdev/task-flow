@@ -53,7 +53,6 @@ export default function CreateTask(props: {
     typedText,
     setFullText,
     finishTyping,
-    fullText,
     onTaskCreated,
   } = props;
   const [createWithAI, setCreateWithAI] = useState(true);
@@ -61,7 +60,6 @@ export default function CreateTask(props: {
   const {
     generateTask: {
       mutateAsync: generateTaskMutate,
-      data: generateTaskData,
       isPending: generatePending,
     },
     createTask: { mutateAsync: createTaskMutate, isPending: createPending },
@@ -114,7 +112,7 @@ export default function CreateTask(props: {
               <FormField
                 control={createTaskForm.control}
                 name="title"
-                render={({ field }) => (
+                render={({}) => (
                   <FormItem className="w-full">
                     <FormLabel>Titulo</FormLabel>
                     <FormControl>

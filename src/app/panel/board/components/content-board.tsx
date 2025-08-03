@@ -42,7 +42,7 @@ export default function ContentBoard({
     finishTyping,
     fullText,
   } = useTaskForms.useGenerateTaskForm();
-  const { createTaskForm, setDefaultTaskStatus, defaultTaskStatus } =
+  const { createTaskForm, setDefaultTaskStatus } =
     useTaskForms.useCreateTaskForm();
 
   const handleShowCreateDialog = (status: TaskStatus) => {

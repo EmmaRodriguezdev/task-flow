@@ -15,6 +15,7 @@ const Filters = () => {
         type="text"
         onChange={(e) => setQuery(e.target.value)}
         className="w-[40vw]"
+        value={query}
       />
       <div className="flex items-center gap-[10px]">
         <CustomSelect
@@ -25,6 +26,8 @@ const Filters = () => {
             };
           })}
           placeholder="Estatus"
+          defaultValue=""
+          onValueChange={() => {}}
         />
         <CustomSelect
           options={Object.values(TaskPriority).map((status) => {
@@ -34,6 +37,8 @@ const Filters = () => {
             };
           })}
           placeholder="Prioridad"
+          defaultValue=""
+          onValueChange={() => {}}
         />
       </div>
     </section>

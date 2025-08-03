@@ -32,6 +32,7 @@ import Link from "next/link";
 type SidebarItem = {
   title: string;
   url: string;
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   icon: any;
 };
 
