@@ -38,7 +38,7 @@ export function useGenerateTaskForm() {
     }
 
     typingIntervalRef.current = setInterval(() => {
-      index++;
+      index += 10;
       setTypedText(fullText.slice(0, index));
       if (index >= fullText.length) {
         setFinishTyping(true);
