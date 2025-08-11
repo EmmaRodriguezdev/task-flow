@@ -3,22 +3,14 @@ import {
   TaskStatus,
   TaskStatusesNames,
 } from "@/modules/task/infrastructure/interfaces/task.interface";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import Sortable from "sortablejs";
 import CreateTask from "./create-task";
 import CreatetaskSection from "./create-task-section";
 import useTaskForms from "@/modules/task/presentation/components/task-form.hook";
 import CardTask from "./card";
 
-export default function ContentBoard({
-  backlog,
-  todo,
-  inProgress,
-  inReview,
-  done,
-  handleUpdateStatusTask,
-  onTaskCreated,
-}: {
+interface ContentBoardProps {
   backlog: ITask[];
   todo: ITask[];
   inProgress: ITask[];
@@ -26,7 +18,17 @@ export default function ContentBoard({
   done: ITask[];
   handleUpdateStatusTask: (taskId: number, toStatus: TaskStatus) => void;
   onTaskCreated: () => void;
-}) {
+}
+
+const ContentBoard = ({
+  backlog,
+  todo,
+  inProgress,
+  inReview,
+  done,
+  handleUpdateStatusTask,
+  onTaskCreated,
+}: ContentBoardProps) => {
   const backlogRef = useRef<HTMLDivElement>(null);
   const todoRef = useRef<HTMLDivElement>(null);
   const inProgressRef = useRef<HTMLDivElement>(null);
@@ -45,11 +47,13 @@ export default function ContentBoard({
   const { createTaskForm, setDefaultTaskStatus } =
     useTaskForms.useCreateTaskForm();
 
-  const handleShowCreateDialog = (status: TaskStatus) => {
-    setDefaultTaskStatus(status);
-    setShowCreateTaskDialog(true);
-  };
-
+  const handleShowCreateDialog = useCallback(
+    (status: TaskStatus) => {
+      setDefaultTaskStatus(status);
+      setShowCreateTaskDialog(true);
+    },
+    [setDefaultTaskStatus, setShowCreateTaskDialog]
+  );
   useEffect(() => {
     const sortables: Sortable[] = [];
     const containers = [
@@ -83,7 +87,7 @@ export default function ContentBoard({
     return () => {
       sortables.forEach((sortable) => sortable.destroy());
     };
-  }, []);
+  }, [handleUpdateStatusTask]);
 
   return (
     <div className="w-full h-fit border border-gray-200 rounded-[8px]">
@@ -102,7 +106,7 @@ export default function ContentBoard({
             <CreatetaskSection
               onClick={() => handleShowCreateDialog(TaskStatus.BACKLOG)}
             />
-            {backlog?.map((task) => (
+            {backlog?.map((task: ITask) => (
               <CardTask key={task.id} task={task} id={task.id} />
             ))}
           </div>
@@ -122,7 +126,7 @@ export default function ContentBoard({
             <CreatetaskSection
               onClick={() => handleShowCreateDialog(TaskStatus.TODO)}
             />
-            {todo?.map((task) => (
+            {todo?.map((task: ITask) => (
               <CardTask key={task.id} task={task} id={task.id} />
             ))}
           </div>
@@ -142,7 +146,7 @@ export default function ContentBoard({
             <CreatetaskSection
               onClick={() => handleShowCreateDialog(TaskStatus.IN_PROGRESS)}
             />
-            {inProgress?.map((task) => (
+            {inProgress?.map((task: ITask) => (
               <CardTask key={task.id} task={task} id={task.id} />
             ))}
           </div>
@@ -162,7 +166,7 @@ export default function ContentBoard({
             <CreatetaskSection
               onClick={() => handleShowCreateDialog(TaskStatus.IN_REVIEW)}
             />
-            {inReview?.map((task) => (
+            {inReview?.map((task: ITask) => (
               <CardTask key={task.id} task={task} id={task.id} />
             ))}
           </div>
@@ -182,7 +186,7 @@ export default function ContentBoard({
             <CreatetaskSection
               onClick={() => handleShowCreateDialog(TaskStatus.DONE)}
             />
-            {done?.map((task) => (
+            {done?.map((task: ITask) => (
               <CardTask key={task.id} task={task} id={task.id} />
             ))}
           </div>
@@ -202,4 +206,6 @@ export default function ContentBoard({
       />
     </div>
   );
-}
+};
+
+export default React.memo(ContentBoard);
