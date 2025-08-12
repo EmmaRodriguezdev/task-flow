@@ -22,7 +22,7 @@ const TextEditor = ({
   return (
     <div
       className={cn(
-        "w-full h-full rounded-[12px] shadow-xl",
+        "w-full min-h-[50vh] h-full rounded-[12px] shadow-xl",
         generatePending && !finishTyping && "rainbow-wrapper"
       )}
     >
