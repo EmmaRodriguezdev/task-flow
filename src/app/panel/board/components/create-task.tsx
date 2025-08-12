@@ -91,15 +91,14 @@ export default function CreateTask(props: {
           <span className="text-blue-medium font-bold">IAFLOW</span> agrega el
           contexto
         </DialogDescription>
-        <div className="flex-1 items-center space-y-10">
-          <div className="h-[70vh]">
-            <TextEditor
-              value={typedText}
-              setValue={setTypedText}
-              generatePending={generatePending}
-              finishTyping={finishTyping}
-            />
-          </div>
+        <div className="items-center space-y-10">
+          <TextEditor
+            value={typedText}
+            setValue={setTypedText}
+            generatePending={generatePending}
+            finishTyping={finishTyping}
+          />
+
           <section className="w-full space-y-[40px] flex justify-center items-start flex-col">
             <div>
               <CustomCheckbox
